@@ -1,6 +1,6 @@
 -- 11/05/2026 -- 
 
--- Introdução à persistência em Desenvolvimento de Dispositivos Móveis
+-- Introdução a persistência em Desenvolvimento de Dispositivos Móveis
 
 A persistência de dados é uma parte fundamental da disciplina de Desenvolvimento de Dispositivos Móveis, pois está relacionada à capacidade de um aplicativo armazenar e recuperar informações mesmo após ser fechado ou reiniciado. Em aplicações mobile, 
 essa necessidade aparece em situações como cadastro de usuários, produtos, ordens de serviço, categorias e outros dados que precisam continuar disponíveis para o usuário. Dentro do conteúdo estudado, a persistência envolve a criação de operações de cadastro, 
@@ -100,8 +100,14 @@ o uso direto do DAO pode ser suficiente. Porém, em aplicações maiores, o Repo
 A inteligência artificial pode ser utilizada como apoio teórico durante o desenvolvimento, auxiliando na compreensão dos conceitos, na organização das ideias e até na sugestão de estruturas de código. Porém, o código gerado ou sugerido precisa ser
 validado antes de ser implementado. Isso é importante porque a responsabilidade pelo funcionamento do aplicativo continua sendo do desenvolvedor. Assim, a IA pode auxiliar no aprendizado, mas não substitui a análise, os testes e a compreensão do código.
 
+-- 18/05/2026 -- 
+pint of cience
 
+-- 25/05/2026 -- 
+code review
 
+-- 01/06/2026 -- 
+enviar video gravado com uma classe com DAO e explicar cada trexo do código
 
 
 
