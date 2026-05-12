@@ -1,0 +1,114 @@
+-- 11/05/2026 -- 
+
+-- Introdução à persistência em Desenvolvimento de Dispositivos Móveis
+
+A persistência de dados é uma parte fundamental da disciplina de Desenvolvimento de Dispositivos Móveis, pois está relacionada à capacidade de um aplicativo armazenar e recuperar informações mesmo após ser fechado ou reiniciado. Em aplicações mobile, 
+essa necessidade aparece em situações como cadastro de usuários, produtos, ordens de serviço, categorias e outros dados que precisam continuar disponíveis para o usuário. Dentro do conteúdo estudado, a persistência envolve a criação de operações de cadastro, 
+consulta e alteração, além da construção de CRUDs simples e CRUDs de associação. A proposta de trabalhar inicialmente de forma mais manual é importante porque permite compreender melhor o funcionamento do banco de dados, da organização do código e do fluxo das
+informações dentro do aplicativo. 
+
+-- Formas de persistência
+
+No desenvolvimento mobile, a persistência pode ser local, remota ou sincronizada. A persistência local ocorre quando os dados são armazenados diretamente no dispositivo do usuário, como acontece com o uso de bancos locais, por exemplo o SQLite.
+Essa abordagem tende a ser mais rápida, pois não depende de conexão com a internet para acessar os dados. Porém, como as informações ficam no próprio aparelho, é necessário ter atenção à segurança e à possibilidade de alterações locais.
+
+-- Persistência remota
+
+A persistência remota acontece quando os dados são armazenados em um servidor e acessados por meio de uma API. Nesse caso, o aplicativo depende de conexão com a internet, mas os dados ficam centralizados e mais controlados.
+Essa abordagem costuma ser mais adequada quando diferentes usuários precisam acessar as mesmas informações ou quando é necessário manter os dados protegidos em um ambiente externo ao dispositivo.
+
+-- Persistência sincronizada
+
+A persistência sincronizada combina a persistência local e a remota. Nesse modelo, os dados ficam armazenados tanto no dispositivo quanto em um servidor. Isso permite que o aplicativo funcione mesmo sem internet e sincronize as alterações posteriormente.
+Apesar de ser uma solução mais completa, também é mais difícil de implementar, pois exige controle de versões, atualização dos dados e resolução de possíveis conflitos entre as informações locais e remotas.
+
+-- Uso de dependências e bibliotecas
+
+O uso de bibliotecas e dependências auxilia o desenvolvimento da persistência, pois facilita a comunicação entre o aplicativo e o banco de dados. No caso de aplicações mobile, bibliotecas voltadas ao uso do SQLite tornam mais simples a criação de tabelas,
+inserção de registros, consultas e alterações. Mesmo assim, é importante que o desenvolvedor compreenda o que essas ferramentas fazem internamente, para não depender apenas de soluções prontas sem entender o funcionamento da aplicação.
+
+-- SQL, DDL e DML
+
+A linguagem SQL é utilizada para trabalhar com bancos de dados relacionais. Dentro dela, existem divisões importantes, como DDL e DML. A DDL é responsável pela definição da estrutura do banco, ou seja, pela criação e organização das tabelas
+Um exemplo disso é o comando 'CREATE TABLE', usado para criar uma tabela. Já a DML é responsável pela manipulação dos dados, envolvendo comandos de inserção, consulta, alteração e exclusão de registros.
+
+-- Criação de tabelas no aplicativo
+
+Em aplicações pequenas e médias, as tabelas podem ser criadas pelo próprio aplicativo, principalmente quando se utiliza um banco local. Nesse caso, ao iniciar ou configurar o banco, o sistema pode executar comandos para criar as estruturas necessárias.
+Em aplicações maiores, os desenvolvedores costumam ter um controle mais cuidadoso sobre a criação e alteração das tabelas, buscando melhorar o desempenho e evitar problemas de versionamento. Esse cuidado é importante porque mudanças na estrutura do banco 
+podem afetar diretamente os dados já armazenados no dispositivo do usuário.
+
+-- CRUDs simples e CRUDs de associação
+
+Dentro da persistência, as operações CRUD são fundamentais. Um CRUD simples trabalha com uma entidade isolada, como Produto, Cliente ou Categoria. Nesse caso, o sistema realiza operações como inserir, consultar, alterar e salvar dados referentes a uma única tabela. 
+Já um CRUD de associação envolve o relacionamento entre duas ou mais entidades. Por exemplo, uma ordem de serviço pode estar associada a um cliente, ou um produto pode estar vinculado a uma categoria. Esse tipo de CRUD exige maior atenção, pois envolve relacionamentos
+entre tabelas e o uso de identificadores para manter essas associações corretamente.
+
+-- Organização do código em camadas
+
+Para que a persistência seja implementada de forma organizada, é importante separar o código em camadas. Essa separação evita que todas as responsabilidades fiquem concentradas nas telas do aplicativo. Assim, cada parte do sistema possui uma função específica.
+A tela cuida da interação com o usuário, o Model representa os dados da aplicação, o DAO acessa diretamente o banco de dados e, quando utilizado, o Repository atua como uma camada de abstração entre a aplicação e a fonte dos dados.
+
+-- Model
+
+O Model representa os objetos do sistema. Em uma aplicação mobile, uma classe 'Produto', por exemplo, pode conter atributos como 'id', 'nome', 'descrição' e 'valor'. Esses atributos representam, no código, os mesmos dados que serão armazenados em uma tabela no banco.
+Como o aplicativo trabalha com objetos e o banco relacional trabalha com tabelas, é necessário realizar um mapeamento entre esses dois formatos.
+
+-- Mapeamento entre objeto e banco
+
+O mapeamento é necessário porque existe uma diferença entre a forma como a aplicação organiza os dados e a forma como o banco os armazena. No aplicativo, os dados aparecem como objetos. No banco, eles aparecem como registros em tabelas. 
+Assim, quando um produto é salvo, o objeto 'Produto' precisa ser convertido em dados para a tabela. Da mesma forma, quando uma consulta é feita no banco, os registros encontrados precisam ser convertidos novamente em objetos para serem utilizados pela aplicação.
+
+-- DAO
+
+O DAO, ou Data Access Object, é uma das partes mais importantes da persistência. Ele é responsável por concentrar a lógica de acesso ao banco de dados. Isso significa que os comandos SQL e as operações de inserção, consulta e alteração devem ficar dentro do DAO,
+e não espalhados pelas telas do aplicativo. Essa separação torna o código mais organizado, facilita a manutenção e evita repetição de comandos em diferentes partes do sistema.
+
+-- **Importância do DAO no aplicativo**
+
+O DAO permite que a tela não precise conhecer diretamente a estrutura do banco de dados. A tela apenas coleta os dados digitados pelo usuário, cria um objeto Model e envia esse objeto para o DAO. O DAO, então, executa a operação necessária no banco. 
+Isso deixa o código mais limpo, pois cada parte da aplicação possui uma responsabilidade clara. A interface cuida da interação com o usuário, enquanto o DAO cuida da persistência dos dados.
+
+-- Fluxo de dados na aplicação
+
+O fluxo de dados em uma aplicação mobile com persistência deve seguir uma sequência clara. Primeiro, o usuário interage com a tela, preenchendo campos ou selecionando informações. Depois, a tela captura esses dados e cria um objeto correspondente ao Model.
+Em seguida, esse objeto é enviado ao DAO ou ao Repository. O DAO recebe o objeto, transforma suas informações em dados compatíveis com o banco e executa o comando SQL adequado. Após isso, o banco retorna uma resposta, indicando sucesso ou erro. Por fim, 
+a tela informa o resultado ao usuário.
+
+-- Exemplo de fluxo em um cadastro
+
+Em uma tela de cadastro de produto, o usuário digita o nome, a descrição e o valor do produto. A tela coleta essas informações e cria um objeto 'Produto'. Em seguida, esse objeto é enviado ao 'ProdutoDAO' que executa o comando de inserção no banco local.
+Caso a operação seja concluída corretamente, o aplicativo pode exibir uma mensagem informando que o produto foi cadastrado com sucesso. Esse exemplo mostra que a tela não precisa executar diretamente comandos SQL, pois essa responsabilidade pertence ao DAO.
+
+-- Fluxo em CRUDs de associação
+
+Nos CRUDs de associação, o fluxo exige ainda mais cuidado. Por exemplo, em uma ordem de serviço associada a um cliente, o usuário primeiro seleciona o cliente e depois preenche os dados da ordem. A aplicação cria um objeto 'OrdemServico' contendo seus próprios dados
+e também o identificador do cliente selecionado. Depois disso, o objeto é enviado ao DAO, que salva a ordem no banco mantendo a associação correta entre as tabelas.
+
+-- **Consultas com associação**
+
+Além de salvar dados associados, o DAO também pode realizar consultas mais complexas. Por exemplo, ao listar ordens de serviço, pode ser necessário mostrar não apenas os dados da ordem, mas também o nome do cliente vinculado a ela. Para isso,
+o DAO pode utilizar consultas SQL envolvendo mais de uma tabela. Dessa forma, a aplicação consegue apresentar informações mais completas ao usuário, mantendo a lógica de consulta organizada em uma camada específica.
+
+-- Repository
+
+O Repository pode ser utilizado como uma camada acima do DAO. Enquanto o DAO está mais próximo do banco de dados local e contém a lógica direta de acesso aos dados, o Repository pode decidir de onde esses dados virão. Em aplicações simples,
+o uso direto do DAO pode ser suficiente. Porém, em aplicações maiores, o Repository ajuda a separar melhor as responsabilidades, podendo buscar dados no banco local, em uma API remota ou em outro serviço.
+
+-- Uso de inteligência artificial como apoio
+
+A inteligência artificial pode ser utilizada como apoio teórico durante o desenvolvimento, auxiliando na compreensão dos conceitos, na organização das ideias e até na sugestão de estruturas de código. Porém, o código gerado ou sugerido precisa ser
+validado antes de ser implementado. Isso é importante porque a responsabilidade pelo funcionamento do aplicativo continua sendo do desenvolvedor. Assim, a IA pode auxiliar no aprendizado, mas não substitui a análise, os testes e a compreensão do código.
+
+
+
+
+
+
+
+
+
+
+
+
+
