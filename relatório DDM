@@ -64,7 +64,7 @@ Assim, quando um produto é salvo, o objeto 'Produto' precisa ser convertido em 
 O DAO, ou Data Access Object, é uma das partes mais importantes da persistência. Ele é responsável por concentrar a lógica de acesso ao banco de dados. Isso significa que os comandos SQL e as operações de inserção, consulta e alteração devem ficar dentro do DAO,
 e não espalhados pelas telas do aplicativo. Essa separação torna o código mais organizado, facilita a manutenção e evita repetição de comandos em diferentes partes do sistema.
 
--- **Importância do DAO no aplicativo**
+-- Importância do DAO no aplicativo
 
 O DAO permite que a tela não precise conhecer diretamente a estrutura do banco de dados. A tela apenas coleta os dados digitados pelo usuário, cria um objeto Model e envia esse objeto para o DAO. O DAO, então, executa a operação necessária no banco. 
 Isso deixa o código mais limpo, pois cada parte da aplicação possui uma responsabilidade clara. A interface cuida da interação com o usuário, enquanto o DAO cuida da persistência dos dados.
@@ -85,7 +85,7 @@ Caso a operação seja concluída corretamente, o aplicativo pode exibir uma men
 Nos CRUDs de associação, o fluxo exige ainda mais cuidado. Por exemplo, em uma ordem de serviço associada a um cliente, o usuário primeiro seleciona o cliente e depois preenche os dados da ordem. A aplicação cria um objeto 'OrdemServico' contendo seus próprios dados
 e também o identificador do cliente selecionado. Depois disso, o objeto é enviado ao DAO, que salva a ordem no banco mantendo a associação correta entre as tabelas.
 
--- **Consultas com associação**
+-- Consultas com associação
 
 Além de salvar dados associados, o DAO também pode realizar consultas mais complexas. Por exemplo, ao listar ordens de serviço, pode ser necessário mostrar não apenas os dados da ordem, mas também o nome do cliente vinculado a ela. Para isso,
 o DAO pode utilizar consultas SQL envolvendo mais de uma tabela. Dessa forma, a aplicação consegue apresentar informações mais completas ao usuário, mantendo a lógica de consulta organizada em uma camada específica.
